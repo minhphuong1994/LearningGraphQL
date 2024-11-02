@@ -22,8 +22,12 @@ export const typeDefs = `#graphql
     # exposing entry points
     type Query{
         reviews: [Review]
+        # setup entry point that requires an input param of ID type as mandatory, which will return a Review obj
+        review(id: ID!): Review  
         authors: [Author]
+        author(id: ID!): Author
         games: [Game]
+        game(id: ID!): Game
     }
 
 `

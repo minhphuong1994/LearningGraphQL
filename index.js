@@ -10,11 +10,26 @@ const resolvers = {
         games(){ //must be the same name as the entry point defined in the Schema Query type (schem.js file)
             return db.games //return value must be the same type with what defined in the Schema Query type
         },
+        game(_,args){
+            // in real project, this should perform some request to real database of findReviewById
+            // in this project, we are finding Review that has same id with the id param coming from the request
+            return db.games.find((game) => game.id === args.id)
+        },
         authors(){
             return db.authors
         },
+        author(_,args){
+            // in real project, this should perform some request to real database of findReviewById
+            // in this project, we are finding Review that has same id with the id param coming from the request
+            return db.authors.find((author) => author.id === args.id)
+        },
         reviews(){
             return db.reviews
+        },
+        review(_,args){
+            // in real project, this should perform some request to real database of findReviewById
+            // in this project, we are finding Review that has same id with the id param coming from the request
+            return db.reviews.find((review) => review.id === args.id)
         }
     }
 }
