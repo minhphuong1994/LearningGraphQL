@@ -62,6 +62,21 @@ const resolvers = {
             }
             db.games.push(gameToAdd)
             return gameToAdd
+        },
+        updateGame(_,args){
+            let checker = db.games.find((game) => game.id === args.id)
+            let updatedValue
+            if(checker){
+                db.games = db.games.map((game)=>{
+                    if(game.id === args.id){
+                        updatedValue = {...game,...args.newGame} //return a new obj which has updated values from newGame
+                        return updatedValue
+                    }
+                    return game //just return the game if not the game in need to be updated
+                })
+            }
+
+            return updatedValue
         }
     }
 }

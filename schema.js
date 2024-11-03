@@ -36,10 +36,16 @@ export const typeDefs = `#graphql
     type Mutation{
         addGame(game: AddGameInput!) : Game
         deleteGame(id: ID!): Game #returns a Game object
+        updateGame(id: ID!,newGame: EditGameInput): Game
     }
+
     #input keyword tells GraphQL this is a collection of fields to be used as a single argument
     input AddGameInput{
         title: String!,
         platform: [String!]!
+    }
+    input EditGameInput{
+        title: String,
+        platform: [String!]
     }
 `
