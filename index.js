@@ -11,16 +11,12 @@ const resolvers = {
             return db.games //return value must be the same type with what defined in the Schema Query type
         },
         game(_,args){
-            // in real project, this should perform some request to real database of findReviewById
-            // in this project, we are finding Review that has same id with the id param coming from the request
             return db.games.find((game) => game.id === args.id)
         },
         authors(){
             return db.authors
         },
         author(_,args){
-            // in real project, this should perform some request to real database of findReviewById
-            // in this project, we are finding Review that has same id with the id param coming from the request
             return db.authors.find((author) => author.id === args.id)
         },
         reviews(){
@@ -30,6 +26,25 @@ const resolvers = {
             // in real project, this should perform some request to real database of findReviewById
             // in this project, we are finding Review that has same id with the id param coming from the request
             return db.reviews.find((review) => review.id === args.id)
+        }
+    },
+    //same obj name that's defined in the relationship in the schema file
+    Game: { 
+        reviews(parent){ //reviews resolver - this will be used when 'reviews' is nested in Game obj
+            return db.reviews.filter((review) => review.game_id === parent.id)
+        }
+    },
+    Author: {
+        reviews(parent){
+            return db.reviews.filter((review) => review.author_id === parent.id)
+        }
+    },
+    Review:{
+        author(parent){ //author resolver for 'author' nested within Review object
+            return db.authors.find((author) => author.id === parent.author_id)
+        },
+        game(parent){ //game resolver for 'game' nested within Game object
+            return db.games.find((game) => game.id === parent.id)
         }
     }
 }
