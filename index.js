@@ -6,7 +6,7 @@ import { typeDefs } from "./schema.js";
 import db from "./_db.js" //mock database
 
 const resolvers = {
-    Query:{
+    Query:{ //Entry points resolvers
         games(){ //must be the same name as the entry point defined in the Schema Query type (schem.js file)
             return db.games //return value must be the same type with what defined in the Schema Query type
         },
@@ -45,6 +45,15 @@ const resolvers = {
         },
         game(parent){ //game resolver for 'game' nested within Game object
             return db.games.find((game) => game.id === parent.id)
+        }
+    },
+    Mutation:{
+        deleteGame(_,args){
+            let checker = db.games.find((game) => game.id === args.id)
+            if(checker){
+                db.games = db.games.filter((game) => game.id !== args.id) //returns games whose ID does not equals the input Id
+            }
+            return checker
         }
     }
 }
