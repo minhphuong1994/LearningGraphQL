@@ -54,6 +54,14 @@ const resolvers = {
                 db.games = db.games.filter((game) => game.id !== args.id) //returns games whose ID does not equals the input Id
             }
             return checker
+        },
+        addGame(_,args){
+            let gameToAdd = {
+                ...args.game, //spread all fields of the input 'game' object to current obj
+                id: Math.floor(Math.random()*10000).toString()
+            }
+            db.games.push(gameToAdd)
+            return gameToAdd
         }
     }
 }
